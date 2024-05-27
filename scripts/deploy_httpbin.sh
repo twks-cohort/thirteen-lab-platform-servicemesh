@@ -11,7 +11,7 @@ metadata:
   namespace: lab-system-mtls
 spec:
   hosts:
-  - "httpbin.$CLUSTER.cdicohorts-thirteen.com"
+  - "httpbin.cdicohorts-thirteen.com"
   gateways:
   - istio-system/cdicohorts-thirteen-com-gateway
   http:
