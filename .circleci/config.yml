@@ -69,10 +69,10 @@ commands:
         type: string
         default: $CLUSTER
     steps:
-      - do/circle-deploy
-      - do/slack-webhook:
-          message: lab-platform-servicemesh << parameters.cluster >> deployment
-          webhook-url: $LAB_EVENTS_CHANNEL_WEBHOOK
+      # - do/circle-deploy
+      # - do/slack-webhook:
+      #     message: lab-platform-servicemesh << parameters.cluster >> deployment
+      #     webhook-url: $LAB_EVENTS_CHANNEL_WEBHOOK
       - run:
           name: deploy istio operator and matching version manifest
           command: bash scripts/deploy_istio.sh << parameters.cluster >> inplace
@@ -214,9 +214,9 @@ jobs:
       - run:
           name: install requirements
           command: pip install -r requirements.txt
-      - run:
-          name: update datadog eks-base dashboard
-          command: bash scripts/deploy_dashboard.sh
+      # - run:
+      #     name: update datadog eks-base dashboard
+      #     command: bash scripts/deploy_dashboard.sh
 
   update-monitors:
     parameters:
@@ -242,9 +242,9 @@ jobs:
       - run:
           name: install requirements
           command: pip install -r requirements.txt
-      - run:
-          name: update datadog cluster monitors
-          command: python scripts/deploy_monitors.py << parameters.cluster >> $(cat << parameters.cluster >>.auto.tfvars.json | jq -r .alert_channel)
+      # - run:
+      #     name: update datadog cluster monitors
+      #     command: python scripts/deploy_monitors.py << parameters.cluster >> $(cat << parameters.cluster >>.auto.tfvars.json | jq -r .alert_channel)
 
 workflows:
   version: 2
@@ -344,12 +344,12 @@ workflows:
           shell:  op run --env-file op.nonprod.env -- /bin/bash -eo pipefail
           source-env: op.nonprod.env
           cluster: sandbox-eu-central-1
-      - validate-servicemesh:
-          name: validate prod-us-east-1 servicemesh
-          context: << pipeline.parameters.context >>
-          shell:  op run --env-file op.prod.env -- /bin/bash -eo pipefail
-          source-env: op.prod.env
-          cluster: prod-us-east-1
+      # - validate-servicemesh:
+      #     name: validate prod-us-east-1 servicemesh
+      #     context: << pipeline.parameters.context >>
+      #     shell:  op run --env-file op.prod.env -- /bin/bash -eo pipefail
+      #     source-env: op.prod.env
+      #     cluster: prod-us-east-1
       - update-dashboard:
           name: refresh eks-servicemesh dashboard
           context: << pipeline.parameters.context >>
