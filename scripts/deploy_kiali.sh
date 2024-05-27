@@ -15,4 +15,6 @@ helm upgrade --install --version $KIALI_VERSION --set cr.create=true --set cr.na
 sleep 40
 
 kubectl get secrets -o json -n istio-system | jq -r '.items[] | select(.metadata.name | test("kiali-service-account")).data.token' > kiali-token
-cat kiali-token | base64 -d | opw write platform-$CLUSTER kiali-token -
+
+kiali_token_base64=$(cat kiali-token | base64 -d )
+op item edit "thirteen-platform-$CLUSTER" --vault cohorts "kiali-token[password]=$kiali_token_base64"

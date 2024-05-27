@@ -1,0 +1,4 @@
+fileignoreconfig:
+- filename: scripts/deploy_kiali.sh
+  checksum: 54c9032b75dbec3a88d04724a71a39064b38aa780a73ddd56c936779fa4022e8
+version: "1.0"
